@@ -152,25 +152,25 @@
 
     //For Touch Events Mobile
 
-    content_div.addEventListener('touchstart',(element) =>{
-      element.currentTarget.classList.add('dragging')
-      let drag_ghost = event.target.cloneNode(true)
-      drag_ghost.style.opacity = '0'
-    })
+    // content_div.addEventListener('touchstart',(element) =>{
+    //   element.currentTarget.classList.add('dragging')
+    //   let drag_ghost = event.target.cloneNode(true)
+    //   drag_ghost.style.opacity = '0'
+    // })
 
-    content_div.addEventListener('touchend',(element) =>{
-      element.currentTarget.classList.remove('dragging')
-    })
+    // content_div.addEventListener('touchend',(element) =>{
+    //   element.currentTarget.classList.remove('dragging')
+    // })
 
 
-    content_div.addEventListener('touchmove',(element) =>{
-      dragging = document.querySelector('.dragging')
+    // content_div.addEventListener('touchmove',(element) =>{
+    //   dragging = document.querySelector('.dragging')
       
-      curr_element = element.currentTarget
+    //   curr_element = element.currentTarget
 
-      console.log("touch-move",curr_element)
-      tasks.insertBefore(dragging,curr_element)
-    })
+    //   console.log("touch-move",curr_element)
+    //   tasks.insertBefore(dragging,curr_element)
+    // })
 
 
 
