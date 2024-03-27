@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="stylesheet" href="./styles.css">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <title>Todo app</title>
+</head>
+<body>
+  <div class="fullcontainer">
+    <div class="bg-div">
+      <img class="img-fluid" src="./images/bg-desktop-dark.jpg" alt="">
+    </div>
+    <div class="color-div">
+      
+    </div>
+    <div class="todo col-lg-4 col-md-8 col-10 ">
+      <div class="header">
+        <h2>TODO</h2>
+        <div class="new-task">
+          <input id="task" type="text" placeholder="Create New Task...">
+          <div onclick="addNew()" id="add-task"><img src="./images/icon-check.svg" alt=""></button></div>
+        </div>
+      </div>
+      <div style="box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+        <div id="tasks">
+          <div style="height: 5px;" id="inv_div"> </div>
+        </div>
+        <div class="footer">
+          <div id="count_items" class="count-div"></div>
+          <div class="status-div d-flex">
+            <p onclick="displayAll()" id="all" class="options active">All</p>
+            <p onclick="displayActive()" id="active" class="options ">Active</p>
+            <p onclick="displayCompleted()" id="completed" class="options ">Completed</p>
+          </div>
+          <div onclick="clearCompleted()" class="clear">Clear Completed</div>
+        </div>
+      </div>
+    </div>
+    <p class="drag-text">Drag and Drop to Reorder list</p>
+    
+    
+  </div>
+ 
+
+  
+</body>
+
+<script>
+
+  count = 0
+  count_items.innerHTML = "0 items left "
+
+  tasks.addEventListener('dragover',(element) =>{
+    element.preventDefault()
+  })
+
+  inv_div.addEventListener('dragover',(element) =>{
+      dragging = document.querySelector('.dragging')
+      curr_element = element.currentTarget
+      console.log(curr_element.nextSibling)
+      tasks.insertBefore(dragging,curr_element.nextSibling)
+  })
+
+  const addNew = () =>{
+    count += 1
+    new_task = task.value
+    var task_div = document.createElement("div")
+    task_div.innerHTML = new_task
+    task_div.classList.add("task-div")
+    var close_div = document.createElement("div")
+    close_div.innerHTML = '<img src="./images/icon-cross.svg" alt="">'
+    close_div.classList.add("close-div")
+    var check_div = document.createElement("div")
+    check_div.innerHTML = '<img src="./images/icon-check.svg" alt="">'
+    check_div.classList.add("check-div")
+    content_div = document.createElement("div")
+    content_div.appendChild(check_div)
+    content_div.appendChild(task_div)
+    content_div.appendChild(close_div)
+    content_div.classList.add("tasks","incomplete")
+    content_div.setAttribute("draggable","true")
+    // content_div.className += "incomplete"
+    tasks.appendChild(content_div) 
+    task.value = ""
+    count_items.innerHTML = `${count} items left`
+
+    close_div.addEventListener('click',(event) =>{
+
+      let parent = event.currentTarget.parentNode
+      if(parent.classList.value.includes('incomplete')){
+        count -= 1
+        count_items.innerHTML = `${count} items left`
+      }
+      console.log(event.currentTarget)
+      event.currentTarget.parentNode.remove()
+
+    })
+
+    check_div.addEventListener('click',(event) =>{
+      let parent = event.currentTarget.parentNode
+      console.log(parent.classList)
+      if(parent.classList.value.includes('incomplete')){
+        parent.classList.remove('incomplete')
+        parent.classList.add('complete')
+        count -= 1
+        count_items.innerHTML = `${count} items left`
+        if(active.classList.value.includes('active')){
+          parent.style.display ="none"
+        }
+      }
+      else{
+        count += 1
+        count_items.innerHTML = `${count} items left`
+        parent.classList.remove('complete')
+        parent.classList.add('incomplete')
+        if(completed.classList.value.includes('active')){
+          parent.style.display = "none"
+        }
+      }
+      
+    })
+
+    //Drag and Rearrange Tasks
+
+    content_div.addEventListener('dragstart',(element) =>{
+      element.currentTarget.classList.add('dragging')
+      let drag_ghost = event.target.cloneNode(true)
+      drag_ghost.style.opacity = '0'
+      event.dataTransfer.setDragImage(drag_ghost,0,0)
+    })
+
+    content_div.addEventListener('dragend',(element) =>{
+      element.currentTarget.classList.remove('dragging')
+    })
+
+
+    content_div.addEventListener('dragover',(element) =>{
+      dragging = document.querySelector('.dragging')
+      curr_element = element.currentTarget
+      console.log(curr_element.nextSibling)
+      tasks.insertBefore(dragging,curr_element.nextSibling)
+    })
+
+    
+
+
+
+  }
+
+
+  const clearCompleted = () =>{
+    completed_tasks = document.querySelectorAll('.complete')
+    console.log(completed)
+    completed_tasks.forEach((element) =>{
+      element.remove()
+    })
+  }
+
+
+  const displayAll = () =>{
+    all_tasks = document.querySelectorAll('.tasks')
+    all_tasks.forEach((element) =>{
+      element.style.display ="flex"
+    })
+    all.classList.add('active')
+    
+    active.classList.remove("active")
+    
+    completed.classList.remove('active')
+    
+
+
+  }
+
+  const displayActive = () =>{
+    all_tasks = document.querySelectorAll('.complete')
+    all_tasks.forEach((element) =>{
+      element.style.display ="none"
+    })
+    all_tasks = document.querySelectorAll('.incomplete')
+    all_tasks.forEach((element) =>{
+      element.style.display ="flex"
+    })
+    active.classList.add('active')
+    
+    all.classList.remove("active")
+    
+    
+    completed.classList.remove('active')
+   
+
+  }
+
+  const displayCompleted = () =>{
+    all_tasks = document.querySelectorAll('.complete')
+    all_tasks.forEach((element) =>{
+      element.style.display ="flex"
+    })
+    all_tasks = document.querySelectorAll('.incomplete')
+    all_tasks.forEach((element) =>{
+      element.style.display ="none"
+    })
+
+    
+    completed.classList.add('active')
+
+    active.classList.remove("active")
+    
+    all.classList.remove('active')
+    
+  }
+
+  
+  
+</script>
+</html>

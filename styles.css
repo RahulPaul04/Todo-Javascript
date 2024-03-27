@@ -1,0 +1,201 @@
+.fullcontainer {
+    height: 100vh;
+    position: relative;
+   
+}
+
+.bg-div{
+    object-fit: cover;
+    height: 33%;
+}
+
+.bg-div img{
+    height: 100%;
+    width: 100%;
+}
+
+.color-div{
+    background-color: hsl(235, 21%, 11%);
+    height: 67%;
+}
+
+.drag-text{
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    color: rgba(255,255,255,0.2);
+
+}
+
+.todo{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%)translateY(-50%);
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    
+}
+
+.todo h2{
+    color: white;
+    letter-spacing: 20px;
+    margin-bottom: 30px;
+
+}
+
+.new-task{
+    background-color: hsl(235, 24%, 19%);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.new-task input{
+    border: none;
+    margin: none;
+    background-color: rgba(0,0,0,0);
+    font-size: 18px;
+    color: hsl(234, 39%, 85%);
+    flex-grow: 1;
+}
+
+.new-task input:focus-visible{
+    border: none;
+    margin: none;
+    outline: none;
+    background-color: rgba(0,0,0,0);
+}
+
+#tasks{
+    background-color: hsl(235, 24%, 19%);
+    height: calc(80vh*0.70);
+    border-radius: 5px 5px 0px 0px;
+    /* overflow-x: hidden; */
+}
+
+#task-light{
+    background-color: hsl(0, 0%, 98%);
+}
+
+#add-task img{
+    height: 60%;
+}
+
+.tasks{
+    background-color: hsl(235, 24%, 19%);
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: hsl(234, 39%, 85%);
+    font-size: 18px;
+    border-bottom: 0.000000001px solid rgba(255,255,255,0.3)
+
+}
+
+.tasks::-webkit-scrollbar{
+    display: none;
+}
+
+.task-div{
+    flex-grow: 1;
+}
+
+.check-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: solid 0.1px rgba(255,255,255,0.3) ;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.incomplete .check-div img{
+    display: none;
+}
+
+.check-div:hover{
+    border: solid 0.1px  hsl(192, 100%, 67%) ;
+
+}
+
+.close-div{
+    cursor: pointer;
+}
+
+
+
+
+.complete .task-div{
+    color: rgba(255,255,255,0.3);
+    text-decoration: line-through;
+}
+
+.complete .check-div {
+    background-image: linear-gradient(to bottom, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+}
+
+
+.footer{
+    margin-top: -2px;
+    background-color: hsl(235, 24%, 19%);
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 0px 0px 5px 5px;
+    
+}
+
+.footer *{
+    color: rgba(255,255,255,0.3);
+    font-size: 12px;
+}
+
+.status-div{
+    gap: 4px;
+}
+
+.clear:hover{
+    color: hsl(234, 39%, 85%);
+    cursor: pointer;
+}
+
+.options:hover{
+    color: hsl(234, 39%, 85%);
+    cursor: pointer;
+}
+
+.active{
+    color: hsl(220, 98%, 61%) !important;
+}
+
+
+.dragging{
+    opacity: 1;
+    border-radius: 5px;
+    width: 102%;
+    border: none;
+    margin-left: -1%;
+    box-shadow: 0px 0px 5px 10px rgba(0,0,0,0.15);
+    z-index: 10;
+    position: relative;
+
+}
