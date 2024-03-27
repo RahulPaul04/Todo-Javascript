@@ -66,7 +66,13 @@
 
   const addNew = () =>{
     count += 1
-    new_task = task.value
+    new_task = task.value.trim()
+    console.log(task.value,task.value == false)
+    if(task.value == false && new_task != "0"){
+      console.log("in here");
+      task.value = ""
+      return
+    }
     var task_div = document.createElement("div")
     task_div.innerHTML = new_task
     task_div.classList.add("task-div")
@@ -147,22 +153,26 @@
     //For Touch Events Mobile
 
     content_div.addEventListener('touchstart',(element) =>{
+      element.preventDefault()
       element.currentTarget.classList.add('dragging')
       let drag_ghost = event.target.cloneNode(true)
       drag_ghost.style.opacity = '0'
-      event.dataTransfer.setDragImage(drag_ghost,0,0)
     })
 
     content_div.addEventListener('touchend',(element) =>{
+      element.preventDefault()
       element.currentTarget.classList.remove('dragging')
     })
 
 
     content_div.addEventListener('touchmove',(element) =>{
+      element.preventDefault()
       dragging = document.querySelector('.dragging')
+      
       curr_element = element.currentTarget
-      console.log(curr_element.nextSibling)
-      tasks.insertBefore(dragging,curr_element.nextSibling)
+
+      console.log("touch-move",curr_element)
+      tasks.insertBefore(dragging,curr_element)
     })
 
 
